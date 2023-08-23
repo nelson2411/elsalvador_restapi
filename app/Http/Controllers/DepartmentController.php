@@ -53,14 +53,14 @@ class DepartmentController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $name
+     * @param  string  $name
      * @return \Illuminate\Http\Response
      */
 
-    public function showByName($name)
+    public function showBySlug($slug)
     {
         // display a department from el_salvador database
-        return Department::where('name', $name)->get();
+        return Department::where('slug', $slug)->firstOrFail();
     }
 
     /**
@@ -89,5 +89,31 @@ class DepartmentController extends Controller
     {
         // delete one department from el_salvador database
         return Department::destroy($id);
+    }
+
+    /**
+     * Search for a name
+     * @param str $name
+     * @return \Illuminate\Http\Response
+     * 
+     */
+    public function search($name)
+    {
+        // search for a department from el_salvador database
+        return Department::where('name', 'like', '%'.$name.'%')->get();
+    }
+
+    // Create a function to get the top-5 largest departments
+    /**
+     * Get the top-5 largest departments
+     * @return \Illuminate\Http\Response
+     * 
+     */
+    public function topFive()
+    {
+        // get the top-5 largest departments from el_salvador database
+        $departments = Department::all();
+        $departments = $departments->sortByDesc('area')->take(5);
+        return $departments;
     }
 }

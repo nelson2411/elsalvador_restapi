@@ -15,16 +15,59 @@ use App\Http\Controllers\DepartmentController;
 |
 */
 
-Route::resource(
-    'departments',
-    DepartmentController::class
-);
+/* Define the unprotected routes: get all departments, get a department by id
 
-// Create a route to display a department by name
-Route::get(
-    'departments/name/{name}',
-    [DepartmentController::class, 'showByName']
+*/
+Route::group(['middleware' => ['api']], function () {
+    // get all departments from el_salvador database
+    Route::get(
+        'departments',
+        [DepartmentController::class, 'index']
+    );
+    // get a department from el_salvador database
+    Route::get(
+        'departments/{id}',
+        [DepartmentController::class, 'show']
+    );
+    // get by slug 
+    Route::get(
+    'departments/name/{slug}',
+    [DepartmentController::class, 'showBySlug']
 );
+    // Search route
+    Route::get(
+    'departments/search/{name}',
+    [DepartmentController::class, 'search']
+);
+});
+
+
+// Protected routes with Sanctum
+
+Route::group(['middleware' => ['auth:sanctum']], function () {
+    // create a department in el_salvador database
+    Route::post(
+        'departments',
+        [DepartmentController::class, 'store']
+    );
+    // update a department in el_salvador database
+    Route::put(
+        'departments/{id}',
+        [DepartmentController::class, 'update']
+    );
+    // delete a department in el_salvador database
+    Route::delete(
+        'departments/{id}',
+        [DepartmentController::class, 'destroy']
+    );
+});
+
+
+
+// Get the top-5 largest departments
+Route::get('departments/area/top-five', [DepartmentController::class, 'topFive']);
+
+
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
