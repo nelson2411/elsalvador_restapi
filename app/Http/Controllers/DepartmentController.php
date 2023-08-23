@@ -72,7 +72,11 @@ class DepartmentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // create the update method for the department in el_salvador database
+        $department = Department::find($id);
+        $department->update($request->all());
+
+        return $department;
     }
 
     /**
@@ -83,6 +87,7 @@ class DepartmentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // delete one department from el_salvador database
+        return Department::destroy($id);
     }
 }

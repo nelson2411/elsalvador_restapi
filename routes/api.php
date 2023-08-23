@@ -15,13 +15,15 @@ use App\Http\Controllers\DepartmentController;
 |
 */
 
-Route::get(
-    '/departments',
-    [DepartmentController::class, 'index']
+Route::resource(
+    'departments',
+    DepartmentController::class
 );
-Route::post(
-    '/departments',
-    [DepartmentController::class, 'store']
+
+// Create a route to display a department by name
+Route::get(
+    'departments/name/{name}',
+    [DepartmentController::class, 'showByName']
 );
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

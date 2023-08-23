@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Municipality;
 
 class MunicipalityController extends Controller
 {
@@ -13,7 +14,8 @@ class MunicipalityController extends Controller
      */
     public function index()
     {
-        //
+        // get all municipalities from el_salvador database
+        return Municipality::all();
     }
 
     /**
@@ -24,7 +26,13 @@ class MunicipalityController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // create a municipality in el_salvador database
+        $request->validate([
+            'name' => 'required',
+            'department_id' => 'required',
+        ]);
+
+        return Municipality::create($request->all());
     }
 
     /**
