@@ -15,7 +15,7 @@ class DepartmentController extends Controller
     public function index()
     {
         // display all departments from el_salvador database
-       return Department::all();
+       return json_encode(Department::all());
     }
 
     /**
@@ -34,7 +34,7 @@ class DepartmentController extends Controller
             'slug' => 'required',
         ]);
 
-        return Department::create($request->all());
+        return json_encode(Department::create($request->all()));
         
     }
 
@@ -47,7 +47,7 @@ class DepartmentController extends Controller
     public function show($id)
     {
         // display a department from el_salvador database
-        return Department::find($id);
+        return json_encode(Department::find($id));
     }
 
     /**
@@ -60,7 +60,7 @@ class DepartmentController extends Controller
     public function showBySlug($slug)
     {
         // display a department from el_salvador database
-        return Department::where('slug', $slug)->firstOrFail();
+        return json_encode(Department::where('slug', $slug)->first());
     }
 
     /**
@@ -76,7 +76,7 @@ class DepartmentController extends Controller
         $department = Department::find($id);
         $department->update($request->all());
 
-        return $department;
+        return json_encode($department);
     }
 
     /**
@@ -100,7 +100,7 @@ class DepartmentController extends Controller
     public function search($name)
     {
         // search for a department from el_salvador database
-        return Department::where('name', 'like', '%'.$name.'%')->get();
+        return json_encode(Department::where('name', 'like', '%'.$name.'%')->get());
     }
 
     // Create a function to get the top-5 largest departments
@@ -114,6 +114,6 @@ class DepartmentController extends Controller
         // get the top-5 largest departments from el_salvador database
         $departments = Department::all();
         $departments = $departments->sortByDesc('area')->take(5);
-        return $departments;
+        return json_encode($departments);
     }
 }

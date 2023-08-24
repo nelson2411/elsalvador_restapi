@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\MunicipalityController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,12 +34,12 @@ Route::group(['middleware' => ['api']], function () {
     Route::get(
     'departments/name/{slug}',
     [DepartmentController::class, 'showBySlug']
-);
+    );
     // Search route
-    Route::get(
+    Route::get( 
     'departments/search/{name}',
     [DepartmentController::class, 'search']
-);
+    );
 });
 
 
@@ -66,6 +67,47 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
 // Get the top-5 largest departments
 Route::get('departments/area/top-five', [DepartmentController::class, 'topFive']);
+
+/*
+|--------------------------------------------------------------------------
+| Municipality Routes
+|--------------------------------------------------------------------------
+*/
+
+Route::group(['middleware' => ['api']], function () {
+    // get all municipalities from el_salvador database
+    Route::get(
+        'municipalities',
+        [MunicipalityController::class, 'index']
+    );
+    Route::post(
+        'municipalities',
+        [MunicipalityController::class, 'store']
+    );
+    Route::get(
+        'municipalities/{id}',
+        [MunicipalityController::class, 'show']
+    );
+    Route::put(
+        'municipalities/{id}',
+        [MunicipalityController::class, 'update']
+    );
+    Route::delete(
+        'municipalities/{id}',
+        [MunicipalityController::class, 'destroy']
+    );
+    Route::get(
+        'municipalities/search/{name}',
+        [MunicipalityController::class, 'search']
+    );
+    Route::get(
+        'municipalities/top-five',
+        [MunicipalityController::class, 'topFive']
+    );
+});
+
+
+
 
 
 
