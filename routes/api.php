@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\MunicipalityController;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,6 +16,11 @@ use App\Http\Controllers\MunicipalityController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+// Register route and login route
+
+Route::post('register', [AuthController::class, 'register']);
+Route::post('login', [AuthController::class, 'login']);
 
 /* Define the unprotected routes: get all departments, get a department by id
 
@@ -43,9 +49,12 @@ Route::group(['middleware' => ['api']], function () {
 });
 
 
-// Protected routes with Sanctum
+// Protected department routes with Sanctum
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
+    // Auth routes
+    Route::post('logout', [AuthController::class, 'logout']);
+
     // create a department in el_salvador database
     Route::post(
         'departments',
@@ -61,6 +70,20 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         'departments/{id}',
         [DepartmentController::class, 'destroy']
     );
+    // Municipalities protected routes
+    Route::post(
+        'municipalities',
+        [MunicipalityController::class, 'store']
+    );
+     Route::put(
+        'municipalities/{id}',
+        [MunicipalityController::class, 'update']
+    );
+    Route::delete(
+        'municipalities/{id}',
+        [MunicipalityController::class, 'destroy']
+    );
+
 });
 
 
@@ -80,22 +103,12 @@ Route::group(['middleware' => ['api']], function () {
         'municipalities',
         [MunicipalityController::class, 'index']
     );
-    Route::post(
-        'municipalities',
-        [MunicipalityController::class, 'store']
-    );
+    
     Route::get(
         'municipalities/{id}',
         [MunicipalityController::class, 'show']
     );
-    Route::put(
-        'municipalities/{id}',
-        [MunicipalityController::class, 'update']
-    );
-    Route::delete(
-        'municipalities/{id}',
-        [MunicipalityController::class, 'destroy']
-    );
+   
     Route::get(
         'municipalities/search/{name}',
         [MunicipalityController::class, 'search']

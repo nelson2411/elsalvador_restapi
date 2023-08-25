@@ -21,10 +21,13 @@ class AuthServiceProvider extends ServiceProvider
      *
      * @return void
      */
+    /*
+    I want user to be able to register only using a key that I will provide to them.
+    */
     public function boot()
     {
         $this->registerPolicies();
 
-        //
+       
     }
 }
