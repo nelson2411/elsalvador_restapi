@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\MunicipalityController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ZonesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,6 +46,16 @@ Route::group(['middleware' => ['api']], function () {
     Route::get( 
     'departments/search/{name}',
     [DepartmentController::class, 'search']
+    );
+    // get all zones from zones database
+    Route::get(
+        'zones',
+        [ZonesController::class, 'index']
+    );
+    // get a zone from zones database
+    Route::get(
+        'zones/{id}',
+        [ZonesController::class, 'show']
     );
 });
 
@@ -90,6 +101,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
 // Get the top-5 largest departments
 Route::get('departments/area/top-five', [DepartmentController::class, 'topFive']);
+// Show departments based on zone
+Route::get('departments/zone/{id}', [DepartmentController::class, 'showByZone']);
 
 /*
 |--------------------------------------------------------------------------

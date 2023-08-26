@@ -5,16 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Department extends Model
+class Zones extends Model
 {
     use HasFactory;
-    
+    protected $table = 'zones';
     protected $fillable = [
-        'name',
-        'capital',
-        'area',
-        'slug',
-        'zone_id',
-        'iso_code'
+        'name',        
     ];
 }

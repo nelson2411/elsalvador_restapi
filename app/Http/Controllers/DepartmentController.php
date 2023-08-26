@@ -15,7 +15,7 @@ class DepartmentController extends Controller
     public function index()
     {
         // display all departments from el_salvador database
-       return json_encode(Department::all());
+       return Department::all();
     }
 
     /**
@@ -32,6 +32,8 @@ class DepartmentController extends Controller
             'capital' => 'required',
             'area' => 'required',
             'slug' => 'required',
+            'zone_id' => 'required',
+            'iso_code' => 'required'
         ]);
 
         return json_encode(Department::create($request->all()));
@@ -76,7 +78,7 @@ class DepartmentController extends Controller
         $department = Department::find($id);
         $department->update($request->all());
 
-        return json_encode($department);
+        return $department;
     }
 
     /**
@@ -115,5 +117,15 @@ class DepartmentController extends Controller
         $departments = Department::all();
         $departments = $departments->sortByDesc('area')->take(5);
         return json_encode($departments);
+    }
+    /**
+     * Create a function to show departments based on zone
+     * @param int $id
+     * @return \Illuminate\Http\Response     * 
+     */
+    public function showByZone($id)
+    {
+        // show departments based on zone from el_salvador database
+        return Department::where('zone_id', $id)->get();
     }
 }
