@@ -13,6 +13,8 @@ class District extends Model
         'name',
         'area',
         'municipality_id',
+        'department_id',
+        'zone_id',
         'flag',
         'population',
         'coordinates',

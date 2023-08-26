@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\District;
 
 class DistrictController extends Controller
 {
@@ -13,7 +14,8 @@ class DistrictController extends Controller
      */
     public function index()
     {
-        //
+        // show all districts
+        $districts = District::all();
     }
 
     /**
@@ -24,7 +26,22 @@ class DistrictController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // store a district
+        $request->validate([
+            'name' => 'required',
+            'area' => 'required',
+            'municipality_id' => 'required',
+            'department_id' => 'required',
+            'zone_id' => 'required',
+            'flag' => 'required',
+            'population' => 'required',
+            'coordinates' => 'required',
+            'itHasBeach' => 'required',
+            'itHasLake' => 'required',
+            'itHasVolcano' => 'required',
+        ]);
+
+        return json_encode(District::create($request->all()));
     }
 
     /**
@@ -35,7 +52,8 @@ class DistrictController extends Controller
      */
     public function show($id)
     {
-        //
+        // show a district
+        return json_encode(District::find($id));
     }
 
     /**
@@ -47,7 +65,11 @@ class DistrictController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // update a district
+        $district = District::find($id);
+        $district->update($request->all());
+
+        return json_encode($district);
     }
 
     /**
@@ -58,6 +80,7 @@ class DistrictController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // destroy a district
+       return District::destroy($id);
     }
 }
