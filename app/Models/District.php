@@ -17,6 +17,7 @@ class District extends Model
         'zone_id',
         'flag',
         'population',
+        'slug',
         'coordinates',
         'itHasBeach',
         'itHasLake',
