@@ -14,8 +14,9 @@ class DistrictController extends Controller
      */
     public function index()
     {
-        // show all districts
-        $districts = District::all();
+        // show all districts and paginate them
+        $districts = District::paginate(5);
+        return ($districts);
     }
 
     /**
@@ -36,7 +37,7 @@ class DistrictController extends Controller
             'flag' => 'required',
             'population' => 'required',
             'slug' => 'required',
-            'coordinates' => 'required',
+            'location' => 'required',
             'itHasBeach' => 'required',
             'itHasLake' => 'required',
             'itHasVolcano' => 'required',

@@ -18,7 +18,7 @@ class District extends Model
         'flag',
         'population',
         'slug',
-        'coordinates',
+        'location',
         'itHasBeach',
         'itHasLake',
         'itHasVolcano',
