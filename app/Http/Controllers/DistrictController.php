@@ -43,7 +43,7 @@ class DistrictController extends Controller
             'itHasVolcano' => 'required',
         ]);
 
-        return json_encode(District::create($request->all()));
+        return District::create($request->all());
     }
 
     /**
@@ -134,7 +134,7 @@ class DistrictController extends Controller
     public function topTenMostPopulated()
     {
         // display the top 10 most populated districts
-        return json_encode(District::orderBy('population', 'desc')->take(10)->get());
+        return District::orderBy('population', 'desc')->take(10)->get();
     }
     /**
      * Display the top ten largest districts

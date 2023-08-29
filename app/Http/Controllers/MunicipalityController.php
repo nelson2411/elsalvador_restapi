@@ -15,7 +15,7 @@ class MunicipalityController extends Controller
     public function index()
     {
         // get all municipalities from el_salvador database
-        return json_encode(Municipality::all());
+        return Municipality::all();
     }
 
     /**

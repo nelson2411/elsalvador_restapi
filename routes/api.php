@@ -25,6 +25,8 @@ Route::post('login', [AuthController::class, 'login']);
 Route::get('departments/area/top-five', [DepartmentController::class, 'topFive']);
 // Show departments based on zone
 Route::get('departments/zone/{id}', [DepartmentController::class, 'showByZone']);
+// Most populated districts
+Route::get('districts/population/top-ten', [DistrictController::class, 'topTenMostPopulated']);
 
 Route::group(['middleware' => ['api']], function () {
     // get all departments from el_salvador database
