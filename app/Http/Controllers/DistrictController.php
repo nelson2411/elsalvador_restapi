@@ -136,6 +136,7 @@ class DistrictController extends Controller
         // display the top 10 most populated districts
         return District::orderBy('population', 'desc')->take(10)->get();
     }
+    
     /**
      * Display the top ten largest districts
      * @return \Illuminate\Http\Response
@@ -157,4 +158,5 @@ class DistrictController extends Controller
         // search by name
         return json_encode(District::where('name', 'like', '%'.$name.'%')->get());
     }
+        
 }
