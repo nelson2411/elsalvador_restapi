@@ -17,13 +17,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/index', function() {
-    return view('index');
-});
-Route::get('departments', function() {
-    return view('departments');
-});
-
-Route::get('about', function() {
-    return view('about');
-});
+Route::view('/index', 'index');
+Route::view('/about', 'about');
+Route::view('/departments', 'departments');
+Route::view('/municipalities', 'municipalities');
+Route::view('/districts', 'districts');
+Route::view('/zones', 'zones');
