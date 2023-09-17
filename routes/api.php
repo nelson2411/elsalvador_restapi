@@ -93,7 +93,16 @@ Route::group(['middleware' => ['api']], function () {
         'districts/{id}',
         [DistrictController::class, 'show']
     );
-    
+    // get top ten most populated districts
+    Route::get(
+        'districts/population/top-ten',
+        [DistrictController::class, 'topTenMostPopulatedDistricts']
+    );
+    // get all districts from a department
+    Route::get(
+        'districts/department/{id}',
+        [DistrictController::class, 'showDistrictsByDepartment']
+    );    
 });
 
 

@@ -125,7 +125,7 @@ class DistrictController extends Controller
     public function showDistrictsByDepartment($id)
     {
         // display the districts based on department
-        return json_encode(District::where('department_id', $id)->get());
+        return District::where('department_id', $id)->get();
     }
     /**
      * display the top 10 most populated districts
@@ -157,6 +157,16 @@ class DistrictController extends Controller
     {
         // search by name
         return json_encode(District::where('name', 'like', '%'.$name.'%')->get());
+    }
+
+    /**
+     * Get the top 10 most populated districts
+     * @return \Illuminate\Http\Response
+     */
+    public function topTenMostPopulatedDistricts()
+    {
+        // get the top 10 most populated districts
+        return District::orderBy('population', 'desc')->take(10)->get();
     }
         
 }
